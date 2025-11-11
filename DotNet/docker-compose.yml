@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lighthouse-postgres
+    environment:
+      ##### change this, don't use the default values or use environment variables or better a vault
+      POSTGRES_DB: lighthouse
+      POSTGRES_USER: lighthouse
+      POSTGRES_PASSWORD: lighthouse
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U lighthouse" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  lighthouse:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lighthouse-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      ##### change this, don't use the default values or use environment variables or better a vault
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=lighthouse;Username=lighthouse;Password=lighthouse
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

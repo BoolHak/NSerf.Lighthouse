@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <!-- NuGet Package Metadata -->
+    <PackageId>NSerf.Lighthouse.Client</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>BoolHak</Authors>
+    <Company>NSerf</Company>
+    <Product>NSerf Lighthouse Client</Product>
+    <Description>A resilient HTTP client for NSerf Lighthouse service discovery. Provides cluster registration and node discovery with built-in encryption (AES-256-GCM), digital signatures (ECDSA), and resilience policies (retry, circuit breaker).</Description>
+    <PackageTags>lighthouse;service-discovery;cluster;distributed-systems;serf;resilience;encryption;http-client</PackageTags>
+    <PackageProjectUrl>https://github.com/BoolHak/NSerf.Lighthouse</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/BoolHak/NSerf.Lighthouse</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright (c) 2025 BoolHak</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>
+      Initial release v1.0.0
+      - Cluster registration with public key authentication
+      - Node discovery with encrypted payloads (AES-256-GCM)
+      - Digital signatures using ECDSA P-256
+      - Built-in resilience with retry and circuit breaker policies
+      - Dependency injection support
+      - Comprehensive logging and telemetry
+    </PackageReleaseNotes>
+
+    <!-- Build and Symbol Configuration -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+    
+    <!-- Source Link for debugging support -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
